@@ -30,7 +30,7 @@ Engage in a chat with the LLM for code-related queris.
 
 ---
 
-# Installaton
+# Installation
 
 - Ensure you have a local LLM server running (e.g., LLaMA 3.1) accessible at `http://localhost:11434/api/cha`.
 - Clone this repository or download the extension packae.
@@ -40,19 +40,19 @@ Engage in a chat with the LLM for code-related queris.
 
 ---
 
-# Usge
+# Usage
 
-## Summarize Codebse
+## Summarize Codebase
 
 - Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P).
 - Type and select `Summarize Codebas`.
 - View the generated summaries in the webview panl.
 
-## Inline Code Suggestins
+## Inline Code Suggestions
 
 As you type in JavaScript or Python files, inline suggestions will appear automaticaly.
 
-## Chat-Based Assistace
+## Chat-Based Assistance
 
 - Open the Chat view in VS Coe.
 - Start a new chat session with the LM.
@@ -61,7 +61,7 @@ As you type in JavaScript or Python files, inline suggestions will appear automa
 
 ---
 
-# Configuraton
+# Configuration
 
 You can customize the LLM settings by modifying the `llmConfig.ts` fie:
 
