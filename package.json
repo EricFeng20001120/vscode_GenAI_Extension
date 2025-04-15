@@ -1,0 +1,70 @@
+{
+  "name": "vscodellm",
+  "displayName": "vsCodeLLM",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onChatParticipant:vscodellm.chat",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:python",
+    "onLanguage:java"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscodellm.suggestCode",
+        "title": "Suggest Code with LLM"
+      },
+
+      {
+        "command": "vscodellm.applySuggestedChanges",
+        "title": "Apply Suggested Changes"
+      },
+      {
+        "command": "vscodellm.summarizeCodebase",
+        "title": "Summarize Code Base"
+      }
+    ],
+    "chatParticipants": [
+      {
+        "id": "vscodellm.chat",
+        "name": "llm",
+        "fullName": "Local LLM",
+        "description": "Interact with your local LLM",
+        "isSticky": true
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.99.0",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.23.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "node-fetch-cjs": "^3.3.2",
+    "ollama": "^0.5.14"
+  }
+}
