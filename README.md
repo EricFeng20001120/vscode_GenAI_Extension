@@ -10,20 +10,20 @@ A Visual Studio Code extension that leverages a local Large Language Model (LLM)
 
 ## Features
 
-### Codebase Summarizatio
+### Codebase Summarization
 Analyze your entire project to receive high-level architectural summaries
 
 -Scans `.js`, `.ts`, and `.md` files (excluding `node_modules`)
 -Utilizes a local LLM to generate concise summaries
 -Displays results in a dedicated webview panel within VS Code
 
-### Inline Code Suggestios
+### Inline Code Suggestions
 Receive real-time code completions as you type.
 
  Supports JavaScript and Python file.
  Provides context-aware suggestions powered by your local LL.
 
-## Chat-Based Code Assistace
+## Chat-Based Code Assistance
 
 Engage in a chat with the LLM for code-related queris.
 - Initiate a chat session within VS Coe.- Ask questions or request code snippes.- Apply suggested changes directly to your codebae.
@@ -42,7 +42,7 @@ Engage in a chat with the LLM for code-related queris.
 
 # Usge
 
-## Summarize Codebse
+## Summarize Codebse
 
 . Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P).
 . Type and select `Summarize Codebas`.
