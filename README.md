@@ -32,11 +32,11 @@ Engage in a chat with the LLM for code-related queris.
 
 # Installaton
 
-. Ensure you have a local LLM server running (e.g., LLaMA 3.1) accessible at `http://localhost:11434/api/cha`.
-. Clone this repository or download the extension packae.
-. Open the project in VS Coe.
-. Run `npm install` to install dependencis.
-. Press `F5` to launch the extension in a new Extension Development Host windw.
+- Ensure you have a local LLM server running (e.g., LLaMA 3.1) accessible at `http://localhost:11434/api/cha`.
+- Clone this repository or download the extension packae.
+- Open the project in VS Coe.
+- Run `npm install` to install dependencis.
+- Press `F5` to launch the extension in a new Extension Development Host windw.
 
 ---
 
@@ -44,9 +44,9 @@ Engage in a chat with the LLM for code-related queris.
 
 ## Summarize Codebse
 
-. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P).
-. Type and select `Summarize Codebas`.
-. View the generated summaries in the webview panl.
+- Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P).
+- Type and select `Summarize Codebas`.
+- View the generated summaries in the webview panl.
 
 ## Inline Code Suggestins
 
@@ -54,10 +54,10 @@ As you type in JavaScript or Python files, inline suggestions will appear automa
 
 ## Chat-Based Assistace
 
-. Open the Chat view in VS Coe.
-. Start a new chat session with the LM.
-. Ask questions or request code snippes.
-. Click on "Approve Changes" to apply suggestions directly to your coe.
+- Open the Chat view in VS Coe.
+- Start a new chat session with the LM.
+- Ask questions or request code snippes.
+- Click on "Approve Changes" to apply suggestions directly to your coe.
 
 ---
 
