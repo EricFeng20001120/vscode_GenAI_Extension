@@ -15,13 +15,13 @@ A Visual Studio Code extension that leverages a local Large Language Model (LLM)
 ## Features
 
 ### Codebase Summarizatio
-Analyze your entire project to receive high-level architectural summaries
+Analyze your entire project to receive high-level architectural summaries
 
 -Scans `.js`, `.ts`, and `.md` files (excluding `node_modules`)
 -Utilizes a local LLM to generate concise summaries
 -Displays results in a dedicated webview panel within VS Code
 
-###💬 Inline Code Suggestios
+### Inline Code Suggestios
 Receive real-time code completions as you type.
 
  Supports JavaScript and Python file.
@@ -44,7 +44,7 @@ Engage in a chat with the LLM for code-related queris.
 
 ---
 
-# Usge
+# Usge
 
 ## Summarize Codebse
 
@@ -52,7 +52,7 @@ Engage in a chat with the LLM for code-related queris.
 . Type and select `Summarize Codebas`.
 . View the generated summaries in the webview panl.
 
-## Inline Code Suggestins
+## Inline Code Suggestins
 
 As you type in JavaScript or Python files, inline suggestions will appear automaticaly.
 
@@ -79,7 +79,7 @@ export const llmConfig = {
     summary: 'You are a professional software architect. Provide a high-level summary of the codebase, focusing on architecture, design patterns, and module responsibilities. Avoid code snippets. Do not make up anything that is not in the code.',
   },
 };
-``
+```
 
 
 Adjust the `model` and `endpoint` fields as needed to match your local LLM setp.
