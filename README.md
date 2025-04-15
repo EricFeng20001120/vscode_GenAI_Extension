@@ -1,7 +1,3 @@
-Certainly! Here's a structured `README.md` for your VS Code extension, which integrates a local LLM (such as LLaMA 3.1) to provide code completions, architectural summaries, and inline suggestions:
-
----
-
 # VSCode LLM Assistant
 
 A Visual Studio Code extension that leverages a local Large Language Model (LLM) to enhance your coding experience with:
