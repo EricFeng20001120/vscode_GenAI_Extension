@@ -14,16 +14,12 @@
     "onLanguage:javascript",
     "onLanguage:typescript",
     "onLanguage:python",
-    "onLanguage:java"
+    "onLanguage:java",
+    "onChatParticipant:vscode-mysql-chat"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "vscodellm.suggestCode",
-        "title": "Suggest Code with LLM"
-      },
-
       {
         "command": "vscodellm.applySuggestedChanges",
         "title": "Apply Suggested Changes"
@@ -31,6 +27,11 @@
       {
         "command": "vscodellm.summarizeCodebase",
         "title": "Summarize Code Base"
+      },
+      {
+        "command": "vscode-mysql-chat.runQuery",
+        "title": "Run MySQL Query",
+        "category": "MySQL Assistant"
       }
     ],
     "chatParticipants": [
@@ -39,6 +40,13 @@
         "name": "llm",
         "fullName": "Local LLM",
         "description": "Interact with your local LLM",
+        "isSticky": true
+      },
+      {
+        "id": "vscode-mysql-chat",
+        "name": "mysql",
+        "fullName": "MySQL Assistant",
+        "description": "A local LLM-powered assistant that helps with SQL generation and query execution.",
         "isSticky": true
       }
     ]
@@ -53,7 +61,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
+    "@types/node": "^20.17.30",
     "@types/vscode": "^1.99.0",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
@@ -63,6 +71,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "mysql2": "^3.14.0",
     "node-fetch": "^3.3.2",
     "node-fetch-cjs": "^3.3.2",
     "ollama": "^0.5.14"

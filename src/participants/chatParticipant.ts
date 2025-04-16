@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { getLLMSuggestion } from '../utils/llmUtils';
+import { getDatabaseContext } from '../utils/db';
+
 
 /**
  * Registers a chat participant that processes user chat requests and generates responses.
@@ -45,4 +47,50 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
         const participant = vscode.chat.createChatParticipant('vscodellm.chat', handler);
         participant.iconPath = vscode.Uri.joinPath(context.extensionUri, 'resources', 'icon.png'); // Optional: set an icon
 
+}
+
+/**
+ * Registers the MySQL chat participant that processes user prompts,
+ * generates SQL queries using the local LLM, and provides options to run them.
+ * @param context - The extension context.
+ */
+export function registerSqlChatParticipant(context: vscode.ExtensionContext) {
+    const sqlhandler: vscode.ChatRequestHandler = async (
+        request,
+        chatContext,
+        response,
+        token
+        ) => {
+        const userPrompt = request.prompt;
+        
+        const schemaContext = await getDatabaseContext();
+        
+        const fullPrompt = `${schemaContext}\n\n${userPrompt}`;
+        
+        const llmResponse = await getLLMSuggestion(fullPrompt, 'sql');
+        
+        if (!llmResponse) {
+            response.markdown('Could not get a response from the LLM.');
+            return;
+        }
+        
+        response.markdown(llmResponse);
+        
+        const sqlRegex = /```(?:sql)?\n([\s\S]*?)\n?```/g;
+        const match = sqlRegex.exec(llmResponse);
+        
+        if (match && match[1]) {
+            const query = match[1].trim();
+        
+            response.button({
+            command: 'vscode-mysql-chat.runQuery',
+            title: 'Run Query',
+            arguments: [query],
+            });
+        } else {
+            response.markdown('Could not find a SQL query wrapped in a markdown code block.');
+        }
+    };
+
+    vscode.chat.createChatParticipant('vscode-mysql-chat', sqlhandler);
 }

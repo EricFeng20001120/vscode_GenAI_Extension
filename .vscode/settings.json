@@ -7,5 +7,22 @@
 		"out": true // set this to false to include "out" folder in search results
 	},
 	// Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-	"typescript.tsc.autoDetect": "off"
+	"typescript.tsc.autoDetect": "off",
+	"sqltools.connections": [
+		{
+			"mysqlOptions": {
+				"authProtocol": "xprotocol",
+				"enableSsl": "Disabled"
+			},
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 33060,
+			"driver": "MySQL",
+			"name": "MySQL Local",
+			"database": "world",
+			"username": "root",
+			"password": "",
+			"connectionTimeout": 30
+		}
+	]
 }
