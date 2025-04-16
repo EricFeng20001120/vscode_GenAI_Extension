@@ -6,7 +6,7 @@ import { llmConfig } from './llmConfig';
  * @param type - The type of response expected: 'code' or 'summary'.
  * @returns The LLM's response as a string.
  */
-export async function getLLMSuggestion(prompt: string, type: 'code' | 'summary'| 'sql'): Promise<string | undefined> {
+export async function getLLMSuggestion(prompt: string, type: 'code' | 'summary'| 'sql'| 'rpgle'): Promise<string | undefined> {
     const systemPrompt = llmConfig.systemPrompts[type];
   
     try {

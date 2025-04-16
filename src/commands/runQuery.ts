@@ -6,7 +6,7 @@ import { getLLMSuggestion } from '../utils/llmUtils';
  * @param context - The extension context.
  */
 export function registerRunQueryCommand(context: vscode.ExtensionContext) {
-    vscode.commands.registerCommand('vscode-mysql-chat.runQuery', async (query: string) => {
+    vscode.commands.registerCommand('vscode-sql-chat.runQuery', async (query: string) => {
         try {
                 const document = await vscode.workspace.openTextDocument({ language: 'sql', content: query });
                 const editor = await vscode.window.showTextDocument(document);

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getLLMSuggestion } from '../utils/llmUtils';
-import { getDatabaseContext } from '../utils/db';
+import { getDatabaseContext } from '../utils/ibmiDb';
 
 
 /**
@@ -64,6 +64,7 @@ export function registerSqlChatParticipant(context: vscode.ExtensionContext) {
         const userPrompt = request.prompt;
         
         const schemaContext = await getDatabaseContext();
+        console.log(schemaContext);
         
         const fullPrompt = `${schemaContext}\n\n${userPrompt}`;
         
@@ -83,7 +84,7 @@ export function registerSqlChatParticipant(context: vscode.ExtensionContext) {
             const query = match[1].trim();
         
             response.button({
-            command: 'vscode-mysql-chat.runQuery',
+            command: 'vscode-sql-chat.runQuery',
             title: 'Run Query',
             arguments: [query],
             });
@@ -92,5 +93,41 @@ export function registerSqlChatParticipant(context: vscode.ExtensionContext) {
         }
     };
 
-    vscode.chat.createChatParticipant('vscode-mysql-chat', sqlhandler);
+    vscode.chat.createChatParticipant('vscode-sql-chat', sqlhandler);
+}
+
+
+export function registerRPGLEChatParticipant(context: vscode.ExtensionContext) {
+    // Register the chat participant
+    const handler: vscode.ChatRequestHandler = async (
+        request: vscode.ChatRequest,
+        chatContext: vscode.ChatContext,
+        stream: vscode.ChatResponseStream,
+        token: vscode.CancellationToken
+    ) => {
+        
+        const editor = vscode.window.activeTextEditor;
+        let contextText = '';
+        if (editor) {
+            const document = editor.document;
+            contextText = document.getText();
+        }
+        console.log("current document:",contextText);
+
+        const combinedPrompt = `Context:\n${contextText}\n\nUser Query:\n${request.prompt}`;
+        
+        try {
+
+            const llmResponse = await getLLMSuggestion(combinedPrompt, 'rpgle') ?? 'No explanation available.';;
+    
+            // Display the response with the "Approve Changes" button
+            stream.markdown(llmResponse);
+        
+            } catch (error) {
+                stream.markdown(`**Error:** ${error}`);
+            }
+        };
+    
+        const participant = vscode.chat.createChatParticipant('vscodellm-rpgle-chat', handler);
+
 }
