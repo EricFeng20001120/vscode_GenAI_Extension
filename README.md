@@ -11,6 +11,7 @@ A Visual Studio Code extension that leverages a local Large Language Model (LLM)
 ## Features
 
 ### Codebase Summarization
+
 Analyze your entire project to receive high-level architectural summaries
 
 -Scans `.js`, `.ts`, and `.md` files (excluding `node_modules`)
@@ -18,14 +19,16 @@ Analyze your entire project to receive high-level architectural summaries
 -Displays results in a dedicated webview panel within VS Code
 
 ### Inline Code Suggestions
+
 Receive real-time code completions as you type.
 
- Supports JavaScript and Python file.
- Provides context-aware suggestions powered by your local LLM.
+Supports JavaScript and Python file.
+Provides context-aware suggestions powered by your local LLM.
 
 ## Chat-Based Code Assistance
 
 Engage in a chat with the LLM for code-related queris.
+
 - Initiate a chat session within VS Coe.- Ask questions or request code snippes.- Apply suggested changes directly to your codebase.
 
 ---
@@ -65,21 +68,19 @@ As you type in JavaScript or Python files, inline suggestions will appear automa
 
 You can customize the LLM settings by modifying the `llmConfig.ts` file:
 
-
 ```typescript
 export const llmConfig = {
-  model: 'llama3.1',
-  endpoint: 'http://localhost:11434/api/chat',
-  systemPrompts: {
-    code: 'You are a professional coder. Respond only with code, without explanations or comments.',
-    summary: 'You are a professional software architect. Provide a high-level summary of the codebase, focusing on architecture, design patterns, and module responsibilities. Avoid code snippets. Do not make up anything that is not in the code.',
-  },
+	model: 'llama3.1',
+	endpoint: 'http://localhost:11434/api/chat',
+	systemPrompts: {
+		code: 'You are a professional coder. Respond only with code, without explanations or comments.',
+		summary:
+			'You are a professional software architect. Provide a high-level summary of the codebase, focusing on architecture, design patterns, and module responsibilities. Avoid code snippets. Do not make up anything that is not in the code.',
+	},
 };
 ```
 
-
 Adjust the `model` and `endpoint` fields as needed to match your local LLM setup.
-
 
 # License
 
@@ -87,6 +88,6 @@ This project is licensed under the [MIT License](LICENS).
 
 --
 
-*Note: Ensure that your local LLM server is operational and accessible at the specified endpoint before using the extension's feature.*
+_Note: Ensure that your local LLM server is operational and accessible at the specified endpoint before using the extension's feature._
 
 --

@@ -1,91 +1,92 @@
 {
-  "name": "vscodellm",
-  "displayName": "vsCodeLLM",
-  "description": "",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.99.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onChatParticipant:vscodellm.chat",
-    "onLanguage:javascript",
-    "onLanguage:typescript",
-    "onLanguage:python",
-    "onLanguage:java",
-    "onChatParticipant:vscode-sql-chat",
-    "onChatParticipant:vscodellm-rpgle-chat"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "vscodellm.applySuggestedChanges",
-        "title": "Apply Suggested Changes"
-      },
-      {
-        "command": "vscodellm.summarizeCodebase",
-        "title": "Summarize Code Base"
-      },
-      {
-        "command": "vscode-sql-chat.runQuery",
-        "title": "Run SQL Query",
-        "category": "SQL Assistant"
-      }
-    ],
-    "chatParticipants": [
-      {
-        "id": "vscodellm.chat",
-        "name": "llm",
-        "fullName": "Local LLM",
-        "description": "Interact with your local LLM",
-        "isSticky": true
-      },
-      {
-        "id": "vscode-sql-chat",
-        "name": "sql",
-        "fullName": "SQL Assistant",
-        "description": "A local LLM-powered assistant that helps with SQL generation and query execution.",
-        "isSticky": true
-      },
-      {
-        "id": "vscodellm-rpgle-chat",
-        "name": "rpgle",
-        "fullName": "RPGLE Explainer",
-        "description": "Explain current RPGLE file",
-        "isSticky": true
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@halcyontech/vscode-ibmi-types": "^2.15.3",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "^20.17.30",
-    "@types/ssh2": "^1.15.5",
-    "@types/vscode": "^1.99.0",
-    "@typescript-eslint/eslint-plugin": "^8.28.0",
-    "@typescript-eslint/parser": "^8.28.0",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
-    "eslint": "^9.23.0",
-    "typescript": "^5.8.2"
-  },
-  "dependencies": {
-    "ibm_db": "^3.3.0",
-    "mysql2": "^3.14.0",
-    "node-fetch": "^3.3.2",
-    "node-fetch-cjs": "^3.3.2",
-    "node-ssh": "^13.2.1",
-    "ollama": "^0.5.14"
-  }
+	"name": "vscodellm",
+	"displayName": "vsCodeLLM",
+	"description": "",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.99.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onChatParticipant:vscodellm.chat",
+		"onLanguage:javascript",
+		"onLanguage:typescript",
+		"onLanguage:python",
+		"onLanguage:java",
+		"onChatParticipant:vscode-sql-chat",
+		"onChatParticipant:vscodellm-rpgle-chat"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "vscodellm.applySuggestedChanges",
+				"title": "Apply Suggested Changes"
+			},
+			{
+				"command": "vscodellm.summarizeCodebase",
+				"title": "Summarize Code Base"
+			},
+			{
+				"command": "vscode-sql-chat.runQuery",
+				"title": "Run SQL Query",
+				"category": "SQL Assistant"
+			}
+		],
+		"chatParticipants": [
+			{
+				"id": "vscodellm.chat",
+				"name": "llm",
+				"fullName": "Local LLM",
+				"description": "Interact with your local LLM",
+				"isSticky": true
+			},
+			{
+				"id": "vscode-sql-chat",
+				"name": "sql",
+				"fullName": "SQL Assistant",
+				"description": "A local LLM-powered assistant that helps with SQL generation and query execution.",
+				"isSticky": true
+			},
+			{
+				"id": "vscodellm-rpgle-chat",
+				"name": "rpgle",
+				"fullName": "RPGLE Explainer",
+				"description": "Explain current RPGLE file",
+				"isSticky": true
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@halcyontech/vscode-ibmi-types": "^2.15.3",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "^20.17.30",
+		"@types/ssh2": "^1.15.5",
+		"@types/vscode": "^1.99.0",
+		"@typescript-eslint/eslint-plugin": "^8.28.0",
+		"@typescript-eslint/parser": "^8.28.0",
+		"@vscode/test-cli": "^0.0.10",
+		"@vscode/test-electron": "^2.4.1",
+		"eslint": "^9.23.0",
+		"prettier": "^3.5.3",
+		"typescript": "^5.8.2"
+	},
+	"dependencies": {
+		"ibm_db": "^3.3.0",
+		"mysql2": "^3.14.0",
+		"node-fetch": "^3.3.2",
+		"node-fetch-cjs": "^3.3.2",
+		"node-ssh": "^13.2.1",
+		"ollama": "^0.5.14"
+	}
 }
