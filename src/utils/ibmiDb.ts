@@ -21,7 +21,7 @@ export async function checkConnection() {
 function formatSchemaDescription(
 	rows: { TABLE_NAME: string; COLUMN_NAME: string; DATA_TYPE: string }[],
 	includeHeader = true,
-	databaseName = 'SNDBX89',
+	databaseName = 'SNDBX92',
 ): string {
 	const schemaMap: { [tableName: string]: { columnName: string; dataType: string }[] } = {};
 

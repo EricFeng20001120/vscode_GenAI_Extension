@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getLLMSuggestion } from '../utils/llmUtils';
+import { streamLLMSuggestion } from '../utils/llmUtils';
 import { getDatabaseContext } from '../utils/ibmiDb';
 
 /**
@@ -7,7 +7,6 @@ import { getDatabaseContext } from '../utils/ibmiDb';
  * @param context - The extension context.
  */
 export function registerChatParticipant(context: vscode.ExtensionContext) {
-	// Register the chat participant
 	const handler: vscode.ChatRequestHandler = async (
 		request: vscode.ChatRequest,
 		chatContext: vscode.ChatContext,
@@ -24,19 +23,20 @@ export function registerChatParticipant(context: vscode.ExtensionContext) {
 		const combinedPrompt = `Context:\n${contextText}\n\nUser Query:\n${request.prompt}`;
 
 		try {
-			const llmResponse =
-				(await getLLMSuggestion(combinedPrompt, 'code')) ?? 'No code available.';
+			const fullResponse = await streamLLMSuggestion(combinedPrompt, 'code', (token) => {
+				stream.markdown(token);
+			});
 
-			// Store the suggested changes
-			context.workspaceState.update('vscodellm.suggestedChanges', llmResponse);
+			// Store the full response for later use
+			await context.workspaceState.update('vscodellm.suggestedChanges', fullResponse);
 
-			// Display the response with the "Approve Changes" button
-			stream.markdown(llmResponse);
 			// Add the "Approve Changes" button
 			stream.button({
 				command: 'vscodellm.applySuggestedChanges',
 				title: 'Approve Changes',
 			});
+
+			return;
 		} catch (error) {
 			stream.markdown(`**Error:** ${error}`);
 		}
@@ -60,14 +60,9 @@ export function registerSqlChatParticipant(context: vscode.ExtensionContext) {
 
 		const fullPrompt = `${schemaContext}\n\n${userPrompt}`;
 
-		const llmResponse = await getLLMSuggestion(fullPrompt, 'sql');
-
-		if (!llmResponse) {
-			response.markdown('Could not get a response from the LLM.');
-			return;
-		}
-
-		response.markdown(llmResponse);
+		const llmResponse = await streamLLMSuggestion(fullPrompt, 'sql', (token) => {
+			response.markdown(token);
+		});
 
 		const sqlRegex = /```(?:sql)?\n([\s\S]*?)\n?```/g;
 		const match = sqlRegex.exec(llmResponse);
@@ -89,7 +84,6 @@ export function registerSqlChatParticipant(context: vscode.ExtensionContext) {
 }
 
 export function registerRPGLEChatParticipant(context: vscode.ExtensionContext) {
-	// Register the chat participant
 	const handler: vscode.ChatRequestHandler = async (
 		request: vscode.ChatRequest,
 		chatContext: vscode.ChatContext,
@@ -107,11 +101,11 @@ export function registerRPGLEChatParticipant(context: vscode.ExtensionContext) {
 		const combinedPrompt = `Context:\n${contextText}\n\nUser Query:\n${request.prompt}`;
 
 		try {
-			const llmResponse =
-				(await getLLMSuggestion(combinedPrompt, 'rpgle')) ?? 'No explanation available.';
+			await streamLLMSuggestion(combinedPrompt, 'rpgle', (token) => {
+				stream.markdown(token);
+			});
 
-			// Display the response with the "Approve Changes" button
-			stream.markdown(llmResponse);
+			return;
 		} catch (error) {
 			stream.markdown(`**Error:** ${error}`);
 		}

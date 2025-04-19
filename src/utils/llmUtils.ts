@@ -1,4 +1,5 @@
 import { llmConfig } from './llmConfig';
+import ollama from 'ollama';
 
 /**
  * Fetches a suggestion from the LLM based on the provided prompt and type.
@@ -8,28 +9,53 @@ import { llmConfig } from './llmConfig';
  */
 export async function getLLMSuggestion(
 	prompt: string,
-	type: 'code' | 'summary' | 'sql' | 'rpgle',
+	type: 'code' | 'summary',
 ): Promise<string | undefined> {
 	const systemPrompt = llmConfig.systemPrompts[type];
 
 	try {
-		const response = await fetch(llmConfig.endpoint, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				model: llmConfig.model,
-				messages: [
-					{ role: 'system', content: systemPrompt },
-					{ role: 'user', content: prompt },
-				],
-				stream: false,
-			}),
+		const response = await ollama.chat({
+			model: llmConfig.model,
+			messages: [
+				{ role: 'system', content: systemPrompt },
+				{ role: 'user', content: prompt },
+			],
 		});
 
-		const data = await response.json();
-		return data.message?.content;
+		return response.message?.content;
 	} catch (error) {
 		console.error('Error fetching LLM suggestion:', error);
 		return undefined;
+	}
+}
+
+export async function streamLLMSuggestion(
+	prompt: string,
+	type: 'code' | 'sql' | 'rpgle',
+	onToken: (token: string) => void,
+): Promise<string> {
+	const systemPrompt = llmConfig.systemPrompts[type];
+	let fullResponse = '';
+
+	try {
+		const stream = await ollama.chat({
+			model: llmConfig.model,
+			messages: [
+				{ role: 'system', content: systemPrompt },
+				{ role: 'user', content: prompt },
+			],
+			stream: true,
+		});
+
+		for await (const chunk of stream) {
+			const token = chunk.message?.content ?? '';
+			fullResponse += token;
+			onToken(token);
+		}
+
+		return fullResponse;
+	} catch (error) {
+		console.error('Error streaming LLM suggestion:', error);
+		return '';
 	}
 }
