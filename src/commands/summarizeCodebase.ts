@@ -3,6 +3,7 @@ import { getLLMSuggestion } from '../utils/llmUtils';
 import MarkdownIt from 'markdown-it';
 import { getFileIcon, getFileType, getVSCodeIcon } from '../utils/webviewUtils';
 
+
 /**
  * Registers the 'vscodellm.summarizeCodebase' command.
  * This command summarizes the codebase using an LLM and displays the summary in a webview panel.
@@ -30,13 +31,13 @@ export function registerSummarizeCodebaseCommand(context: vscode.ExtensionContex
 			{
 				enableScripts: true,
 				retainContextWhenHidden: true,
-				localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'src', 'media')],
+				localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'resources', 'media')],
 			},
 		);
 
-		const cssPath = vscode.Uri.joinPath(context.extensionUri, 'src', 'media', 'styles.css');
+		const cssPath = vscode.Uri.joinPath(context.extensionUri, 'resources', 'media', 'styles.css');
 		const cssUri = panel.webview.asWebviewUri(cssPath);
-		const scriptPath = vscode.Uri.joinPath(context.extensionUri, 'src', 'media', 'script.js');
+		const scriptPath = vscode.Uri.joinPath(context.extensionUri, 'resources', 'media', 'script.js');
 		const scriptUri = panel.webview.asWebviewUri(scriptPath);
 
 		const md = new MarkdownIt();
@@ -62,11 +63,7 @@ export function registerSummarizeCodebaseCommand(context: vscode.ExtensionContex
 				</div>
 
 				<div class="file-grid">
-					${
-						summaries.length > 0
-							? summaries
-									.map(
-										({ fileName, summary }) => `
+					${summaries.length > 0 ? summaries.map(({ fileName, summary }) => `
 						<div class="file-card" data-expanded="false">
 							<div class="file-header">
 								${getFileIcon(fileName)}
@@ -83,16 +80,12 @@ export function registerSummarizeCodebaseCommand(context: vscode.ExtensionContex
 								</div>
 							</div>
 						</div>
-					`,
-									)
-									.join('')
-							: `
+					`,).join('') : `
 						<div class="empty-state">
 							${getVSCodeIcon('warning')}
 							<p>No summaries available for this codebase</p>
 						</div>
-					`
-					}
+					`}
 				</div>
 			<script src="${scriptUri}"></script>
 			</body>

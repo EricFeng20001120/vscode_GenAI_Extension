@@ -1,3 +1,4 @@
+
 function toggleCard(card) {
 	const isExpanded = card.getAttribute('data-expanded') === 'true';
 	card.setAttribute('data-expanded', !isExpanded);

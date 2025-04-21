@@ -83,6 +83,7 @@
 		"typescript": "^5.8.2"
 	},
 	"dependencies": {
+		"@bendera/vscode-webview-elements": "^0.17.2",
 		"ibm_db": "^3.3.0",
 		"markdown-it": "^14.1.0",
 		"mysql2": "^3.14.0",
